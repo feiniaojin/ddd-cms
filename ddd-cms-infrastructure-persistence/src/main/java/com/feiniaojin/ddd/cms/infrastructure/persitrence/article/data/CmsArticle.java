@@ -1,4 +1,4 @@
-package com.feiniaojin.ddd.cms.infrastructure.persitrence.data;
+package com.feiniaojin.ddd.cms.infrastructure.persitrence.article.data;
 
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;

@@ -4,8 +4,8 @@
   github：https://github.com/feiniaojin/naaf-generator
 -->
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.feiniaojin.ddd.cms.infrastructure.persitrence.mapper.CmsArticleMapper">
-    <resultMap id="BaseResultMap" type="com.feiniaojin.ddd.cms.infrastructure.persitrence.data.CmsArticle">
+<mapper namespace="com.feiniaojin.ddd.cms.infrastructure.persitrence.article.mapper.CmsArticleMapper">
+    <resultMap id="BaseResultMap" type="com.feiniaojin.ddd.cms.infrastructure.persitrence.article.data.CmsArticle">
         <result column="id" property="id"/>
         <result column="article_id" property="articleId"/>
         <result column="title" property="title"/>
@@ -27,7 +27,7 @@
         modified_time,
         version
     </sql>
-    <insert id="insert" parameterType="com.feiniaojin.ddd.cms.infrastructure.persitrence.data.CmsArticle">
+    <insert id="insert" parameterType="com.feiniaojin.ddd.cms.infrastructure.persitrence.article.data.CmsArticle">
         insert into cms_article (
         id,
         article_id,

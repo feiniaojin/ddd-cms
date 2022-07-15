@@ -1,4 +1,4 @@
-package com.feiniaojin.ddd.cms.article.application.dto;
+package com.feiniaojin.ddd.cms.application.article.dto;
 
 import com.feiniaojin.ddd.cms.domain.article.ArticleEntity;
 import org.springframework.stereotype.Component;

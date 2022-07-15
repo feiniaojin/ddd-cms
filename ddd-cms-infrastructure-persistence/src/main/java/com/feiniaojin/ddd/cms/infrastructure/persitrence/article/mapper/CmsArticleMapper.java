@@ -1,6 +1,6 @@
-package com.feiniaojin.ddd.cms.infrastructure.persitrence.mapper;
+package com.feiniaojin.ddd.cms.infrastructure.persitrence.article.mapper;
 
-import com.feiniaojin.ddd.cms.infrastructure.persitrence.data.CmsArticle;
+import com.feiniaojin.ddd.cms.infrastructure.persitrence.article.data.CmsArticle;
 import org.apache.ibatis.annotations.Param;
 
 import javax.annotation.Generated;

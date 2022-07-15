@@ -1,6 +1,6 @@
-package com.feiniaojin.ddd.cms.infrastructure.persitrence.jdbc;
+package com.feiniaojin.ddd.cms.infrastructure.persitrence.article.jdbc;
 
-import com.feiniaojin.ddd.cms.infrastructure.persitrence.data.CmsArticle;
+import com.feiniaojin.ddd.cms.infrastructure.persitrence.article.data.CmsArticle;
 import org.springframework.data.repository.CrudRepository;
 
 /**

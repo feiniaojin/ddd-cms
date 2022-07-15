@@ -1,12 +1,12 @@
-package com.feiniaojin.ddd.cms.infrastructure.persitrence;
+package com.feiniaojin.ddd.cms.infrastructure.persitrence.article;
 
 import com.feiniaojin.ddd.cms.domain.article.ArticleDomainRepository;
 import com.feiniaojin.ddd.cms.domain.article.ArticleEntity;
 import com.feiniaojin.ddd.cms.domain.article.ArticleState;
 import com.feiniaojin.ddd.cms.domain.article.primitive.ArticleId;
-import com.feiniaojin.ddd.cms.infrastructure.persitrence.data.CmsArticle;
-import com.feiniaojin.ddd.cms.infrastructure.persitrence.jdbc.CmsArticleRepository;
-import com.feiniaojin.ddd.cms.infrastructure.persitrence.mapper.CmsArticleMapper;
+import com.feiniaojin.ddd.cms.infrastructure.persitrence.article.data.CmsArticle;
+import com.feiniaojin.ddd.cms.infrastructure.persitrence.article.jdbc.CmsArticleRepository;
+import com.feiniaojin.ddd.cms.infrastructure.persitrence.article.mapper.CmsArticleMapper;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;

@@ -1,4 +1,4 @@
-package com.feiniaojin.ddd.cms.infrastructure.publisher;
+package com.feiniaojin.ddd.cms.infrastructure.publisher.article;
 
 import com.feiniaojin.ddd.DomainEvent;
 import com.feiniaojin.ddd.cms.domain.article.ArticleDomainEventPublisher;
