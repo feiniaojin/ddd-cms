@@ -25,5 +25,9 @@
             <groupId>com.feiniaojin.ddd</groupId>
             <artifactId>ddd-cms-infrastructure-persistence</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.feiniaojin.ddd</groupId>
+            <artifactId>ddd-cms-infrastructure-publisher</artifactId>
+        </dependency>
     </dependencies>
 </project>

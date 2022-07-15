@@ -1,4 +1,4 @@
-package com.feiniaojin.ddd.coms.article.application.dto;
+package com.feiniaojin.ddd.cms.article.application.dto;
 
 import lombok.Data;
 

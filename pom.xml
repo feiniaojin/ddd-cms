@@ -21,6 +21,7 @@
         <module>ddd-cms-infrastructure-persistence</module>
         <module>ddd-cms-interfaces-web</module>
         <module>ddd-cms-launcher</module>
+        <module>ddd-cms-infrastructure-publisher</module>
     </modules>
 
     <properties>
@@ -48,6 +49,11 @@
             <dependency>
                 <groupId>com.feiniaojin.ddd</groupId>
                 <artifactId>ddd-cms-interfaces-web</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.feiniaojin.ddd</groupId>
+                <artifactId>ddd-cms-infrastructure-publisher</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

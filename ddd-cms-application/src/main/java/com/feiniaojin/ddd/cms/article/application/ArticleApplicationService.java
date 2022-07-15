@@ -1,12 +1,11 @@
-package com.feiniaojin.ddd.coms.article.application;
+package com.feiniaojin.ddd.cms.article.application;
 
+import com.feiniaojin.ddd.cms.article.application.dto.*;
 import com.feiniaojin.ddd.cms.domain.article.ArticleDomainEventPublisher;
 import com.feiniaojin.ddd.cms.domain.article.ArticleDomainFactory;
 import com.feiniaojin.ddd.cms.domain.article.ArticleDomainRepository;
 import com.feiniaojin.ddd.cms.domain.article.ArticleEntity;
 import com.feiniaojin.ddd.cms.domain.article.primitive.ArticleId;
-import com.feiniaojin.ddd.coms.article.application.dto.ArticleCreateCmd;
-import com.feiniaojin.ddd.coms.article.application.dto.ArticlePublishCmd;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -20,8 +19,11 @@ public class ArticleApplicationService {
     @Resource
     private ArticleDomainRepository domainRepository;
 
-
+    @Resource
     private ArticleDomainEventPublisher domainEventPublisher;
+
+    @Resource
+    private ArticleViewAssembler articleViewAssembler;
 
     /**
      * 创建Article的草稿
@@ -48,5 +50,12 @@ public class ArticleApplicationService {
         ArticleEntity entity = domainRepository.load(new ArticleId(cmd.getArticleId()));
         entity.publishOnWebsite();
         domainEventPublisher.publish(entity.domainEvents());
+    }
+
+    public ArticleView detail(ArticlePageQuery query) {
+
+        ArticleEntity entity = domainRepository.load(new ArticleId(query.getArticleId()));
+
+        return articleViewAssembler.assembler(entity);
     }
 }

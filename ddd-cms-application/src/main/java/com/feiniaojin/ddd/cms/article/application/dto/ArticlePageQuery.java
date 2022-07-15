@@ -1,4 +1,4 @@
-package com.feiniaojin.ddd.coms.article.application.dto;
+package com.feiniaojin.ddd.cms.article.application.dto;
 
 import lombok.Data;
 
@@ -16,4 +16,9 @@ public class ArticlePageQuery {
      * 校招信息搜索关键字
      */
     private String keyword;
+
+    /**
+     * article的业务Id
+     */
+    private String articleId;
 }

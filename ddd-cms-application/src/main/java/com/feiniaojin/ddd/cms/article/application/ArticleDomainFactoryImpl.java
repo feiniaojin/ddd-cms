@@ -1,4 +1,4 @@
-package com.feiniaojin.ddd.coms.article.application;
+package com.feiniaojin.ddd.cms.article.application;
 
 import com.feiniaojin.ddd.cms.domain.article.ArticleDomainFactory;
 import com.feiniaojin.ddd.cms.domain.article.ArticleEntity;

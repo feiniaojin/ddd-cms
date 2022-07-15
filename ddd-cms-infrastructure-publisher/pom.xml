@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>ddd-cms-interfaces-web</artifactId>
+    <artifactId>ddd-cms-infrastructure-publisher</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -19,16 +19,11 @@
     <dependencies>
         <dependency>
             <groupId>com.feiniaojin.ddd</groupId>
-            <artifactId>ddd-cms-application</artifactId>
+            <artifactId>ddd-cms-domain</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.feiniaojin.naaf.ngr</groupId>
-            <artifactId>naaf-graceful-response-starter</artifactId>
-            <version>1.0</version>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
         </dependency>
     </dependencies>
 </project>
