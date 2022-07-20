@@ -12,15 +12,15 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 表名称：cms_article
- * 表注释：article主表
+ * 表名称：cms_article_content
+ * 表注释：article扩展表
  * NOTICE:本文件由代码生成器naaf-generator生成，不要在本文件手工追加任何内容，因为随时可能重新生成替换
  * github：https://github.com/feiniaojin/naaf-generator
  */
 @Data
-@Table("cms_article")
+@Table("cms_article_content")
 @Generated("generator")
-public class CmsArticle implements Serializable {
+public class CmsArticleContent implements Serializable {
     /**
      * 自增主键
      */
@@ -31,13 +31,9 @@ public class CmsArticle implements Serializable {
      */
     private String articleId;
     /**
-     * 标题
+     * 内容
      */
-    private String title;
-    /**
-     * article状态
-     */
-    private Integer articleState;
+    private String content;
     /**
      * 逻辑删除标记[0-正常；1-已删除]
      */

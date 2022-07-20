@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.feiniaojin.ddd.cms.infrastructure.persitrence.article.mapper.CmsArticleContentMapperEx">
+
+    <select id="pageListTotal" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM cms_article_content
+        <where>
+
+        </where>
+    </select>
+
+    <select id="pageList" resultMap="com.feiniaojin.ddd.cms.infrastructure.persitrence.article.mapper.CmsArticleContentMapper.BaseResultMap">
+        SELECT
+        <include refid="com.feiniaojin.ddd.cms.infrastructure.persitrence.article.mapper.CmsArticleContentMapper.BaseColumn"/>
+        FROM cms_article_content
+        <where>
+
+        </where>
+        LIMIT #{offset},#{limit}
+    </select>
+
+    <select id="findOneByBizId" resultMap="com.feiniaojin.ddd.cms.infrastructure.persitrence.article.mapper.CmsArticleContentMapper.BaseResultMap">
+        SELECT
+        <include refid="com.feiniaojin.ddd.cms.infrastructure.persitrence.article.mapper.CmsArticleContentMapper.BaseColumn"/>
+        FROM cms_article_content
+        <where>
+            deleted=0
+            AND article_id=#{articleId}
+        </where>
+        LIMIT 1
+    </select>
+</mapper>

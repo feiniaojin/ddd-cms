@@ -1,5 +1,6 @@
 package com.feiniaojin.ddd.cms.application.article;
 
+import com.feiniaojin.ddd.cms.domain.article.ArticleContent;
 import com.feiniaojin.ddd.cms.domain.article.ArticleDomainFactory;
 import com.feiniaojin.ddd.cms.domain.article.ArticleEntity;
 import com.feiniaojin.ddd.cms.domain.article.primitive.ArticleId;
@@ -14,9 +15,19 @@ public class ArticleDomainFactoryImpl implements ArticleDomainFactory {
     public ArticleEntity newInstance(String title, String content) {
 
         ArticleEntity entity = new ArticleEntity();
+
+        ArticleId articleId = new ArticleId(generateId());
+        entity.setArticleId(articleId);
+
         entity.setTitle(title);
-        entity.setContent(content);
-        entity.setArticleId(new ArticleId(generateId()));
+
+        ArticleContent articleContent = new ArticleContent();
+        articleContent.setArticleId(articleId);
+        articleContent.setContent(content);
+        articleContent.setDeleted(0);
+
+        entity.setContent(articleContent);
+        entity.setDeleted(0);
 
         return entity;
     }

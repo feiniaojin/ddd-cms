@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout  pattern="[%p][%d{DEFAULT}][%t]%m%n"/>
+        </Console>
+        <RollingRandomAccessFile name="all.file" fileName="/Users/qinyujie3/log/ddd_cms.log"
+                                 filePattern="/Users/qinyujie3/log/$${date:yyyy-MM}/ddd_cms_info-%d{yyyy-MM-dd HH-mm}-%i.log">
+            <PatternLayout pattern="[%p][%d{DEFAULT}][%t]%m%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="50 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+            <Filters>
+                <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+        </RollingRandomAccessFile>
+        <RollingRandomAccessFile name="error.file" fileName="/Users/qinyujie3/log/ddd_cms_error.log"
+                                 filePattern="/Users/qinyujie3/log/$${date:yyyy-MM}/ddd_cms_error-%d{yyyy-MM-dd HH-mm}-%i.log">
+            <PatternLayout pattern="[%p][%d{DEFAULT}][%t]%m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+            <Filters>
+                <LevelRangeFilter minLevel="error" maxLevel="warn" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+        </RollingRandomAccessFile>
+    </Appenders>
+
+    <Loggers>
+        <asyncRoot level="info">
+            <AppenderRef ref="all.file"/>
+            <AppenderRef ref="error.file"/>
+            <AppenderRef ref="Console"/>
+        </asyncRoot>
+        <AsyncLogger name="com.feiniaojin" level="info" additivity="false">
+            <AppenderRef ref="all.file"/>
+            <AppenderRef ref="error.file"/>
+            <AppenderRef ref="Console"/>
+        </AsyncLogger>
+    </Loggers>
+</Configuration>

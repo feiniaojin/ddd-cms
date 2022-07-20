@@ -7,5 +7,5 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class PublishedEvent implements DomainEvent {
-    private String campusJobId;
+    private String articleId;
 }

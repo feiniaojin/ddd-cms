@@ -4,12 +4,11 @@
   github：https://github.com/feiniaojin/naaf-generator
 -->
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.feiniaojin.ddd.cms.infrastructure.persitrence.article.mapper.CmsArticleMapper">
-    <resultMap id="BaseResultMap" type="com.feiniaojin.ddd.cms.infrastructure.persitrence.article.data.CmsArticle">
+<mapper namespace="com.feiniaojin.ddd.cms.infrastructure.persitrence.article.mapper.CmsArticleContentMapper">
+    <resultMap id="BaseResultMap" type="com.feiniaojin.ddd.cms.infrastructure.persitrence.article.data.CmsArticleContent">
         <result column="id" property="id"/>
         <result column="article_id" property="articleId"/>
-        <result column="title" property="title"/>
-        <result column="article_state" property="articleState"/>
+        <result column="content" property="content"/>
         <result column="deleted" property="deleted"/>
         <result column="created_by" property="createdBy"/>
         <result column="created_time" property="createdTime"/>
@@ -20,8 +19,7 @@
     <sql id="BaseColumn">
         id,
         article_id,
-        title,
-        article_state,
+        content,
         deleted,
         created_by,
         created_time,
@@ -29,12 +27,11 @@
         modified_time,
         version
     </sql>
-    <insert id="insert" parameterType="com.feiniaojin.ddd.cms.infrastructure.persitrence.article.data.CmsArticle">
-        insert into cms_article (
+    <insert id="insert" parameterType="com.feiniaojin.ddd.cms.infrastructure.persitrence.article.data.CmsArticleContent">
+        insert into cms_article_content (
         id,
         article_id,
-        title,
-        article_state,
+        content,
         deleted,
         created_by,
         created_time,
@@ -45,8 +42,7 @@
         <trim prefix="values (" suffix=")">
             #{id},
             #{articleId},
-            #{title},
-            #{articleState},
+            #{content},
             #{deleted},
             #{createdBy},
             #{createdTime},
@@ -58,6 +54,6 @@
     <select id="findOneById" resultMap="BaseResultMap">
         select
         <include refid="BaseColumn"/>
-        from cms_article where id=#{id}
+        from cms_article_content where id=#{id}
     </select>
 </mapper>

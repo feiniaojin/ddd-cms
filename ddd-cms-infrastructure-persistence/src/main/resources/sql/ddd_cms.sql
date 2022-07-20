@@ -17,7 +17,7 @@ CREATE TABLE `cms_article` (
 	INDEX `idx_articleId`(`article_id`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE utf8mb4_bin COMMENT 'article主表';
 
-CREATE TABLE `cms_article_ext` (
+CREATE TABLE `cms_article_content` (
 	`id` bigint NOT NULL AUTO_INCREMENT COMMENT '自增主键',
 	`article_id` varchar(64) NULL COMMENT 'article业务主键',
 	`content` text NOT NULL COMMENT '内容',
@@ -29,4 +29,4 @@ CREATE TABLE `cms_article_ext` (
 	`version` bigint DEFAULT 1 COMMENT '乐观锁',
 	PRIMARY KEY (`id`),
 	INDEX `idx_articleId`(`article_id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE utf8mb4_bin COMMENT 'article扩展表';
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE utf8mb4_bin COMMENT 'article正文内容表';
