@@ -7,6 +7,8 @@ import com.feiniaojin.ddd.cms.domain.article.ArticleDomainRepository;
 import com.feiniaojin.ddd.cms.domain.article.ArticleEntity;
 import com.feiniaojin.ddd.cms.domain.article.primitive.ArticleId;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.OptimisticLockingFailureException;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -66,6 +68,7 @@ public class ArticleApplicationService {
         return articleViewAssembler.assembler(entity);
     }
 
+    @Retryable(value = OptimisticLockingFailureException.class, maxAttempts = 2)
     public void modifyTitle(ArticleModifyTitleCmd cmd) {
         ArticleEntity entity = domainRepository.load(new ArticleId(cmd.getArticleId()));
         entity.modifyTitle(cmd.getTitle());
@@ -73,6 +76,7 @@ public class ArticleApplicationService {
         domainEventPublisher.publish(entity.domainEvents());
     }
 
+    @Retryable(value = OptimisticLockingFailureException.class, maxAttempts = 2)
     public void modifyContent(ArticleModifyContentCmd cmd) {
         ArticleEntity entity = domainRepository.load(new ArticleId(cmd.getArticleId()));
         entity.modifyContent(cmd.getContent());
