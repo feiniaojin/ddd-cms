@@ -9,7 +9,7 @@
         <result column="id" property="id"/>
         <result column="article_id" property="articleId"/>
         <result column="title" property="title"/>
-        <result column="article_state" property="articleState"/>
+        <result column="publish_state" property="publishState"/>
         <result column="deleted" property="deleted"/>
         <result column="created_by" property="createdBy"/>
         <result column="created_time" property="createdTime"/>
@@ -21,7 +21,7 @@
         id,
         article_id,
         title,
-        article_state,
+        publish_state,
         deleted,
         created_by,
         created_time,
@@ -34,7 +34,7 @@
         id,
         article_id,
         title,
-        article_state,
+        publish_state,
         deleted,
         created_by,
         created_time,
@@ -46,7 +46,7 @@
             #{id},
             #{articleId},
             #{title},
-            #{articleState},
+            #{publishState},
             #{deleted},
             #{createdBy},
             #{createdTime},

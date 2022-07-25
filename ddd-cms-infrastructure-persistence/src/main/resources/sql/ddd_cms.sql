@@ -6,7 +6,7 @@ CREATE TABLE `cms_article` (
 	`id` bigint NOT NULL AUTO_INCREMENT COMMENT '自增主键',
 	`article_id` varchar(64) NULL COMMENT 'article业务主键',
 	`title` varchar(64) NULL COMMENT '标题',
-	`article_state` int NOT NULL COMMent 'article状态',
+	`publish_state` int NOT NULL COMMent '发布状态,[0-待发布；1-已发布]',
 	`deleted` tinyint NULL DEFAULT 0 COMMENT '逻辑删除标记[0-正常；1-已删除]',
 	`created_by` VARCHAR(100) COMMENT '创建人',
 	`created_time` DATETIME NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',

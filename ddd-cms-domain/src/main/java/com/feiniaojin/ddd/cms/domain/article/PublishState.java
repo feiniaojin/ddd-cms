@@ -9,16 +9,16 @@ import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Getter
-public enum ArticleState {
+public enum PublishState {
     TO_PUBLISH(1, "待发布"),
     PUBLISHED(2, "已发布"),
     ;
     private final Integer code;
     private final String msg;
 
-    private static Map<Integer, ArticleState> map = Arrays.stream(ArticleState.values()).collect(Collectors.toMap(ArticleState::getCode, s -> s));
+    private static Map<Integer, PublishState> map = Arrays.stream(PublishState.values()).collect(Collectors.toMap(PublishState::getCode, s -> s));
 
-    public static ArticleState getByCode(Integer code) {
+    public static PublishState getByCode(Integer code) {
         return map.get(code);
     }
 }

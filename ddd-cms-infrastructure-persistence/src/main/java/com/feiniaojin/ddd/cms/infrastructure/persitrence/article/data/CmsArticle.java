@@ -35,9 +35,9 @@ public class CmsArticle implements Serializable {
      */
     private String title;
     /**
-     * article状态
+     * 发布状态,[0-待发布；1-已发布]
      */
-    private Integer articleState;
+    private Integer publishState;
     /**
      * 逻辑删除标记[0-正常；1-已删除]
      */

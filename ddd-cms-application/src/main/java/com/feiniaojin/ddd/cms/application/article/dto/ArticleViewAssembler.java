@@ -11,9 +11,9 @@ public class ArticleViewAssembler {
     public ArticleView assembler(ArticleEntity entity) {
 
         ArticleView view = new ArticleView();
-        view.setArticleId(entity.getArticleId().getEntityIdValue());
-        view.setTitle(entity.getTitle());
-        view.setContent(entity.getContent().getContent());
+        view.setArticleId(entity.getArticleId().getValue());
+        view.setTitle(entity.getArticleTitle().getValue());
+        view.setContent(entity.getContent().getValue());
         view.setPv(ThreadLocalRandom.current().nextInt(999999));
         return view;
     }

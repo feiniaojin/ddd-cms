@@ -1,20 +1,24 @@
 package com.feiniaojin.ddd.cms.domain.article.primitive;
 
-import com.feiniaojin.ddd.EntityId;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import com.feiniaojin.ddd.ValueObject;
 
 import java.util.Objects;
 
-public class ArticleId implements EntityId<String> {
+public class ArticleTitle implements ValueObject<String> {
+
     private String value;
 
-    public ArticleId() {
+    public ArticleTitle() {
     }
 
-    public ArticleId(String value) {
+    public ArticleTitle(String value) {
         this.check(value);
         this.value = value;
+    }
+
+    @Override
+    public String getValue() {
+        return this.value;
     }
 
     public void setValue(String value) {
@@ -23,14 +27,9 @@ public class ArticleId implements EntityId<String> {
     }
 
     private void check(String value) {
-        Objects.requireNonNull(value);
-        if ("".equals(value)) {
+        Objects.requireNonNull(value, "title不能为空");
+        if ("".equals(value) || value.length() > 64) {
             throw new IllegalArgumentException();
         }
-    }
-
-    @Override
-    public String getValue() {
-        return this.value;
     }
 }

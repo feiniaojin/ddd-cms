@@ -1,9 +1,10 @@
 package com.feiniaojin.ddd.cms.application.article;
 
-import com.feiniaojin.ddd.cms.domain.article.ArticleContent;
+import com.feiniaojin.ddd.cms.domain.article.primitive.ArticleContent;
 import com.feiniaojin.ddd.cms.domain.article.ArticleDomainFactory;
 import com.feiniaojin.ddd.cms.domain.article.ArticleEntity;
 import com.feiniaojin.ddd.cms.domain.article.primitive.ArticleId;
+import com.feiniaojin.ddd.cms.domain.article.primitive.ArticleTitle;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -12,18 +13,15 @@ import java.util.UUID;
 public class ArticleDomainFactoryImpl implements ArticleDomainFactory {
 
     @Override
-    public ArticleEntity newInstance(String title, String content) {
+    public ArticleEntity newInstance(String title, ArticleContent articleContent) {
 
         ArticleEntity entity = new ArticleEntity();
 
         ArticleId articleId = new ArticleId(generateId());
         entity.setArticleId(articleId);
 
-        entity.setTitle(title);
+        entity.setArticleTitle(new ArticleTitle(title));
 
-        ArticleContent articleContent = new ArticleContent();
-        articleContent.setArticleId(articleId);
-        articleContent.setContent(content);
         articleContent.setDeleted(0);
 
         entity.setContent(articleContent);

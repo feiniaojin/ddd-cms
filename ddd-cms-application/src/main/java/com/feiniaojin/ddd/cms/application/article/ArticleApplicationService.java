@@ -1,10 +1,8 @@
 package com.feiniaojin.ddd.cms.application.article;
 
 import com.feiniaojin.ddd.cms.application.article.dto.*;
-import com.feiniaojin.ddd.cms.domain.article.ArticleDomainEventPublisher;
-import com.feiniaojin.ddd.cms.domain.article.ArticleDomainFactory;
-import com.feiniaojin.ddd.cms.domain.article.ArticleDomainRepository;
-import com.feiniaojin.ddd.cms.domain.article.ArticleEntity;
+import com.feiniaojin.ddd.cms.domain.article.*;
+import com.feiniaojin.ddd.cms.domain.article.primitive.ArticleContent;
 import com.feiniaojin.ddd.cms.domain.article.primitive.ArticleId;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.OptimisticLockingFailureException;
@@ -36,17 +34,9 @@ public class ArticleApplicationService {
      * @param cmd
      */
     public void newDraft(ArticleCreateCmd cmd) {
-
-        if (log.isInfoEnabled()) {
-            log.info("创建草稿,cmd=[{}]", cmd.toString());
-        }
-
-        ArticleEntity articleEntity = domainFactory.newInstance(cmd.getTitle(), cmd.getContent());
-
+        ArticleEntity articleEntity = domainFactory.newInstance(cmd.getTitle(), new ArticleContent(cmd.getContent()));
         articleEntity.createDraft();
-
         domainRepository.save(articleEntity);
-
         domainEventPublisher.publish(articleEntity.domainEvents());
     }
 
@@ -55,9 +45,9 @@ public class ArticleApplicationService {
      *
      * @param cmd
      */
-    public void publishOnWebsite(ArticlePublishCmd cmd) {
+    public void publishArticle(ArticlePublishCmd cmd) {
         ArticleEntity entity = domainRepository.load(new ArticleId(cmd.getArticleId()));
-        entity.publishOnWebsite();
+        entity.publishArticle();
         domainEventPublisher.publish(entity.domainEvents());
     }
 

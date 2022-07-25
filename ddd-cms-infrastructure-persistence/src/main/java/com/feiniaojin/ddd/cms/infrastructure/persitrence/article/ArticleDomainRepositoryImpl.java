@@ -1,11 +1,12 @@
 package com.feiniaojin.ddd.cms.infrastructure.persitrence.article;
 
-import com.feiniaojin.ddd.cms.domain.article.ArticleContent;
 import com.feiniaojin.ddd.cms.domain.article.ArticleDomainRepository;
 import com.feiniaojin.ddd.cms.domain.article.ArticleEntity;
-import com.feiniaojin.ddd.cms.domain.article.ArticleState;
+import com.feiniaojin.ddd.cms.domain.article.PublishState;
 import com.feiniaojin.ddd.cms.domain.article.exceptions.NotFoundDomainException;
+import com.feiniaojin.ddd.cms.domain.article.primitive.ArticleContent;
 import com.feiniaojin.ddd.cms.domain.article.primitive.ArticleId;
+import com.feiniaojin.ddd.cms.domain.article.primitive.ArticleTitle;
 import com.feiniaojin.ddd.cms.infrastructure.persitrence.article.data.CmsArticle;
 import com.feiniaojin.ddd.cms.infrastructure.persitrence.article.data.CmsArticleContent;
 import com.feiniaojin.ddd.cms.infrastructure.persitrence.article.jdbc.CmsArticleContentRepository;
@@ -41,15 +42,15 @@ public class ArticleDomainRepositoryImpl implements ArticleDomainRepository {
     @Override
     public ArticleEntity load(ArticleId articleId) {
 
-        CmsArticle article = articleMapperEx.findOneByBizId(articleId.getEntityIdValue());
+        CmsArticle article = articleMapperEx.findOneByBizId(articleId.getValue());
         if (article == null) {
-            log.error("查询不到article,articleId=[{}]", articleId.getEntityIdValue());
+            log.error("查询不到article,articleId=[{}]", articleId.getValue());
             throw new NotFoundDomainException();
         }
 
         ArticleEntity entity = new ArticleEntity();
-        entity.setTitle(article.getTitle());
-        entity.setArticleState(ArticleState.getByCode(1));
+        entity.setArticleTitle(new ArticleTitle(article.getTitle()));
+        entity.setPublishState(PublishState.getByCode(article.getPublishState()).getCode());
         entity.setArticleId(articleId);
 
         entity.setVersion(article.getVersion());
@@ -60,11 +61,10 @@ public class ArticleDomainRepositoryImpl implements ArticleDomainRepository {
         entity.setModifiedBy(article.getModifiedBy());
         entity.setDeleted(article.getDeleted());
 
-        CmsArticleContent content = contentMapperEx.findOneByBizId(articleId.getEntityIdValue());
+        CmsArticleContent content = contentMapperEx.findOneByBizId(articleId.getValue());
 
         ArticleContent articleContent = new ArticleContent();
-        articleContent.setArticleId(articleId);
-        articleContent.setContent(content.getContent());
+        articleContent.setValue(content.getContent());
 
         articleContent.setVersion(content.getVersion());
         articleContent.setId(content.getId());
@@ -85,9 +85,10 @@ public class ArticleDomainRepositoryImpl implements ArticleDomainRepository {
     public void save(ArticleEntity entity) {
 
         CmsArticle cmsArticle = new CmsArticle();
-        cmsArticle.setTitle(entity.getTitle());
-        cmsArticle.setArticleId(entity.getArticleId().getEntityIdValue());
-        cmsArticle.setArticleState(entity.getArticleState().getCode());
+        cmsArticle.setTitle(entity.getArticleTitle().getValue());
+        //region
+        cmsArticle.setArticleId(entity.getArticleId().getValue());
+        cmsArticle.setPublishState(entity.getPublishState());
 
         cmsArticle.setId(entity.getId());
         cmsArticle.setCreatedBy(entity.getCreatedBy());
@@ -96,11 +97,12 @@ public class ArticleDomainRepositoryImpl implements ArticleDomainRepository {
         cmsArticle.setModifiedTime(entity.getModifiedTime());
         cmsArticle.setVersion(entity.getVersion());
         cmsArticle.setDeleted(entity.getDeleted());
-
+        //endregion
         ArticleContent content = entity.getContent();
         CmsArticleContent cmsArticleContent = new CmsArticleContent();
-        cmsArticleContent.setArticleId(entity.getArticleId().getEntityIdValue());
-        cmsArticleContent.setContent(content.getContent());
+        cmsArticleContent.setContent(content.getValue());
+        //region
+        cmsArticleContent.setArticleId(entity.getArticleId().getValue());
 
         cmsArticleContent.setId(content.getId());
         cmsArticleContent.setVersion(content.getVersion());
@@ -109,7 +111,7 @@ public class ArticleDomainRepositoryImpl implements ArticleDomainRepository {
         cmsArticleContent.setCreatedTime(content.getCreatedTime());
         cmsArticleContent.setModifiedBy(content.getModifiedBy());
         cmsArticleContent.setModifiedTime(content.getModifiedTime());
-
+        //endregion
         cmsArticleRepository.save(cmsArticle);
         cmsArticleContentRepository.save(cmsArticleContent);
     }

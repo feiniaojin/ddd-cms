@@ -2,12 +2,14 @@ package com.feiniaojin.ddd.cms.domain.article;
 
 import com.feiniaojin.ddd.DomainEvent;
 import com.feiniaojin.ddd.Entity;
-import com.feiniaojin.ddd.cms.domain.ModelMask;
+import com.feiniaojin.ddd.cms.domain.AbstractDomainMask;
 import com.feiniaojin.ddd.cms.domain.article.envents.CreatedEvent;
 import com.feiniaojin.ddd.cms.domain.article.envents.ModifyContentEvent;
 import com.feiniaojin.ddd.cms.domain.article.envents.ModifyTitleEvent;
 import com.feiniaojin.ddd.cms.domain.article.envents.PublishedEvent;
+import com.feiniaojin.ddd.cms.domain.article.primitive.ArticleContent;
 import com.feiniaojin.ddd.cms.domain.article.primitive.ArticleId;
+import com.feiniaojin.ddd.cms.domain.article.primitive.ArticleTitle;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -15,21 +17,21 @@ import java.util.Collections;
 import java.util.List;
 
 @Data
-public class ArticleEntity extends ModelMask implements Entity {
+public class ArticleEntity extends AbstractDomainMask implements Entity {
 
     private List<DomainEvent> events = new ArrayList<>();
 
     private ArticleId articleId;
 
-    private ArticleState articleState;
+    private Integer publishState;
 
-    private String title;
+    private ArticleTitle articleTitle;
 
     private ArticleContent content;
 
     public void createDraft() {
-        this.setArticleState(ArticleState.TO_PUBLISH);
-        events.add(new CreatedEvent(this.articleId.getEntityIdValue()));
+        this.setPublishState(PublishState.TO_PUBLISH.getCode());
+        events.add(new CreatedEvent(this.articleId.getValue()));
     }
 
     @Override
@@ -42,18 +44,19 @@ public class ArticleEntity extends ModelMask implements Entity {
         return tempList;
     }
 
-    public void publishOnWebsite() {
-        this.setArticleState(ArticleState.TO_PUBLISH);
-        events.add(new PublishedEvent(this.articleId.getEntityIdValue()));
+    public void publishArticle() {
+        this.setPublishState(PublishState.TO_PUBLISH.getCode());
+        events.add(new PublishedEvent(this.articleId.getValue()));
     }
 
     public void modifyTitle(String title) {
-        this.setTitle(title);
-        events.add(new ModifyTitleEvent(this.articleId.getEntityIdValue(), title));
+        this.setArticleTitle(new ArticleTitle(title));
+        events.add(new ModifyTitleEvent(this.articleId.getValue(), title));
     }
 
     public void modifyContent(String content) {
-        this.getContent().setContent(content);
-        events.add(new ModifyContentEvent(this.getArticleId().getEntityIdValue(), content));
+        ArticleContent oldContent = this.getContent();
+        this.setContent(ArticleContent.newInstanceFrom(oldContent, content));
+        events.add(new ModifyContentEvent(this.getArticleId().getValue(), content));
     }
 }

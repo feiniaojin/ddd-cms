@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public abstract class ModelMask {
+public abstract class AbstractDomainMask {
 
     /**
      * 自增主键
