@@ -40,7 +40,7 @@ public class ArticleContent extends AbstractDomainMask implements ValueObject<St
      * @param value
      * @return
      */
-    public static ArticleContent newInstanceFrom(ArticleContent old, String value) {
+    public static ArticleContent newInstanceFrom(AbstractDomainMask old, String value) {
 
         ArticleContent newContent = new ArticleContent();
 
@@ -55,6 +55,5 @@ public class ArticleContent extends AbstractDomainMask implements ValueObject<St
         newContent.setValue(value);
         return newContent;
     }
-
 
 }

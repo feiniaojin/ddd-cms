@@ -13,14 +13,14 @@ import java.util.UUID;
 public class ArticleDomainFactoryImpl implements ArticleDomainFactory {
 
     @Override
-    public ArticleEntity newInstance(String title, ArticleContent articleContent) {
+    public ArticleEntity newInstance(ArticleTitle articleTitle, ArticleContent articleContent) {
 
         ArticleEntity entity = new ArticleEntity();
 
         ArticleId articleId = new ArticleId(generateId());
         entity.setArticleId(articleId);
 
-        entity.setArticleTitle(new ArticleTitle(title));
+        entity.setArticleTitle(articleTitle);
 
         articleContent.setDeleted(0);
 

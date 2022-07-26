@@ -4,6 +4,7 @@ import com.feiniaojin.ddd.cms.application.article.dto.*;
 import com.feiniaojin.ddd.cms.domain.article.*;
 import com.feiniaojin.ddd.cms.domain.article.primitive.ArticleContent;
 import com.feiniaojin.ddd.cms.domain.article.primitive.ArticleId;
+import com.feiniaojin.ddd.cms.domain.article.primitive.ArticleTitle;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.retry.annotation.Retryable;
@@ -34,7 +35,8 @@ public class ArticleApplicationService {
      * @param cmd
      */
     public void newDraft(ArticleCreateCmd cmd) {
-        ArticleEntity articleEntity = domainFactory.newInstance(cmd.getTitle(), new ArticleContent(cmd.getContent()));
+        ArticleEntity articleEntity = domainFactory.newInstance(new ArticleTitle(cmd.getTitle()),
+                new ArticleContent(cmd.getContent()));
         articleEntity.createDraft();
         domainRepository.save(articleEntity);
         domainEventPublisher.publish(articleEntity.domainEvents());
@@ -61,7 +63,7 @@ public class ArticleApplicationService {
     @Retryable(value = OptimisticLockingFailureException.class, maxAttempts = 2)
     public void modifyTitle(ArticleModifyTitleCmd cmd) {
         ArticleEntity entity = domainRepository.load(new ArticleId(cmd.getArticleId()));
-        entity.modifyTitle(cmd.getTitle());
+        entity.modifyTitle(new ArticleTitle(cmd.getTitle()));
         domainRepository.save(entity);
         domainEventPublisher.publish(entity.domainEvents());
     }
@@ -69,7 +71,8 @@ public class ArticleApplicationService {
     @Retryable(value = OptimisticLockingFailureException.class, maxAttempts = 2)
     public void modifyContent(ArticleModifyContentCmd cmd) {
         ArticleEntity entity = domainRepository.load(new ArticleId(cmd.getArticleId()));
-        entity.modifyContent(cmd.getContent());
+        entity.modifyContent(ArticleContent.newInstanceFrom(entity.getContent(),
+                cmd.getContent()));
         domainRepository.save(entity);
         domainEventPublisher.publish(entity.domainEvents());
     }

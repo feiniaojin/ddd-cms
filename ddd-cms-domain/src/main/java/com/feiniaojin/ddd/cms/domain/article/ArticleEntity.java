@@ -49,14 +49,14 @@ public class ArticleEntity extends AbstractDomainMask implements Entity {
         events.add(new PublishedEvent(this.articleId.getValue()));
     }
 
-    public void modifyTitle(String title) {
-        this.setArticleTitle(new ArticleTitle(title));
-        events.add(new ModifyTitleEvent(this.articleId.getValue(), title));
+    public void modifyTitle(ArticleTitle articleTitle) {
+        this.setArticleTitle(articleTitle);
+        events.add(new ModifyTitleEvent(this.articleId.getValue(), articleTitle.getValue()));
     }
 
-    public void modifyContent(String content) {
-        ArticleContent oldContent = this.getContent();
-        this.setContent(ArticleContent.newInstanceFrom(oldContent, content));
-        events.add(new ModifyContentEvent(this.getArticleId().getValue(), content));
+    public void modifyContent(ArticleContent articleContent) {
+        this.setContent(articleContent);
+        events.add(new ModifyContentEvent(this.getArticleId().getValue(),
+                articleContent.getValue()));
     }
 }
