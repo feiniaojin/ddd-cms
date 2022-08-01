@@ -36,8 +36,8 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>com.feiniaojin.gracefulresponse</groupId>
-            <artifactId>graceful-response-starter</artifactId>
+            <groupId>com.feiniaojin.ddd.ecosystem</groupId>
+            <artifactId>graceful-response</artifactId>
             <version>1.0</version>
             <exclusions>
                 <exclusion>
